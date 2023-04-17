@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -27,11 +28,11 @@
                 <button type="button" class="close-form-btn" id="close-form">X</button>
                 <h2>Enter card details</h2>
                 <div class="form-inputs">
-                    <input type="text" placeholder="Enter your name" required id="order-name">
-                    <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="Enter card number" required>
-                    <input type="tel" inputmode="numeric" maxlength="3" placeholder="Enter CVV" required>
+                    <input type="text" placeholder="Enter your name" id="order-name" name="userName" required/>
+                    <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="Enter card number" required/>
+                    <input type="tel" inputmode="numeric" maxlength="3" placeholder="Enter CVV" required/>
                 </div>
-                <button type="button" class="payment-btn" id="pay-btn">Pay</button>
+                    <button type="submit" class="payment-btn" id="pay-btn">Pay</button>
             </form>
         </div>
 	<script src="index.js" type="module"></script>

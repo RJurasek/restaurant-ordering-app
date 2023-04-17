@@ -1,6 +1,9 @@
 import { menuArray } from '/data.js'
 
 const lowerDisplay = document.getElementById('lower-display')
+const paymentForm = document.getElementById('payment-form')
+const backgroundBlur = document.getElementById('main-container')
+
 
 document.addEventListener('click',function(e){
     if(e.target.dataset.addItem){
@@ -10,16 +13,24 @@ document.addEventListener('click',function(e){
         removeItem(e.target.dataset.remove)
     }
     else if(e.target.id === 'complete-order-btn'){
-        openClosePaymentForm()
+        openPaymentForm()
+        paymentForm.addEventListener('submit', function(e){
+            e.preventDefault()
+            const formData = new FormData(paymentForm)
+            const userName = formData.get('userName')
+            closePaymentForm()
+            lowerDisplay.innerHTML = `
+                <div class="order-message">
+                    <h2>Thanks, ${userName}! Your order is on its way!
+                </div>
+                `
+            checkoutItemsArray = []
+        })
+
     }
     else if(e.target.id === 'close-form'){
-        openClosePaymentForm()
+        closePaymentForm()
     }
-    else if(e.target.id === 'pay-btn'){
-        handlePaymentSubmit()
-    }
-    
-    
 })
 
 function getTargetItem(itemId){
@@ -77,29 +88,14 @@ function removeItem(indexNum){
     }
 }
 
-let isBlured = false
-
-function openClosePaymentForm(){
-    const backgroundBlur = document.getElementById('main-container')
-    if(!isBlured){
-        backgroundBlur.classList.add('blur')
-    } else {
-        backgroundBlur.classList.remove('blur')
-    }
-    isBlured = !isBlured
-    document.getElementById('payment-form').classList.toggle('hidden')
+function openPaymentForm(){
+    backgroundBlur.classList.add('blur')
+    paymentForm.classList.remove('hidden')
 }
 
-function handlePaymentSubmit(){
-    openClosePaymentForm()
-    let orderName = document.getElementById('order-name').value
-    lowerDisplay.innerHTML = `
-    <div class="order-message">
-        <h2>Thanks, ${orderName}! Your order is on its way!
-    </div>
-    `
-    document.getElementById('payment-form').reset()
-    checkoutItemsArray = []
+function closePaymentForm(){
+    backgroundBlur.classList.remove('blur')
+    paymentForm.classList.add('hidden')
 }
 
 function getMenuFeed(){
